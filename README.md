@@ -1,3 +1,3 @@
 # picograd
 
-A description of this package.
+A toy lib to understand the backpropagation algo in `Swift`.

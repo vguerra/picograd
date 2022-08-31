@@ -11,9 +11,9 @@ final class picogradTests: XCTestCase {
         l.backward()
 
         assert(l.grad.isApproximatelyEqual(to: 1.0))
-        assert(l.data.isApproximatelyEqual(to: 5.0), "`l.data(\(l.data)` shuold be 5.0")
-        assert(a.grad.isApproximatelyEqual(to: 1.0), "`a.grad(\(a.grad)` should be 1.0 ")
-        assert(b.grad.isApproximatelyEqual(to: 1.0), "`b.grad(\(a.grad)` should be 1.0 ")
+        assert(l.data.isApproximatelyEqual(to: 5.0), "`l.data(\(l.data))` shuold be 5.0")
+        assert(a.grad.isApproximatelyEqual(to: 1.0), "`a.grad(\(a.grad))` should be 1.0 ")
+        assert(b.grad.isApproximatelyEqual(to: 1.0), "`b.grad(\(a.grad))` should be 1.0 ")
     }
 
     func testMulBackward() throws {
@@ -24,9 +24,9 @@ final class picogradTests: XCTestCase {
         l.backward()
 
         assert(l.grad.isApproximatelyEqual(to: 1.0))
-        assert(l.data.isApproximatelyEqual(to: 6.0), "`l.data(\(l.data)` shuold be 5.0")
-        assert(a.grad.isApproximatelyEqual(to: b.data), "`a.grad(\(a.grad)` should be 1.0 ")
-        assert(b.grad.isApproximatelyEqual(to: a.data), "`b.grad(\(a.grad)` should be 1.0 ")
+        assert(l.data.isApproximatelyEqual(to: 6.0), "`l.data(\(l.data))` shuold be 5.0")
+        assert(a.grad.isApproximatelyEqual(to: b.data), "`a.grad(\(a.grad))` should be 1.0 ")
+        assert(b.grad.isApproximatelyEqual(to: a.data), "`b.grad(\(a.grad))` should be 1.0 ")
     }
 
     func testOneValueOperandInSum() throws {

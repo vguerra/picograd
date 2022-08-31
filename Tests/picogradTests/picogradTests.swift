@@ -45,4 +45,27 @@ final class picogradTests: XCTestCase {
         assert(b.data.isApproximatelyEqual(to: 6.0))
     }
 
+    func testSumsAndMultsCombined() throws {
+        let a = Value(2.0, label: "a")
+        let b = Value(3.0, label: "b")
+        let c = Value(5.0, label: "c")
+        let d = Value(8.0, label: "d")
+        let e = Value(2.0, label: "l")
+
+        let l = ((a*b*c) + d)*e
+        l.backward()
+
+        let dlde = (a*b*c) + d
+        let dldd = e
+        let dlda = e*b*c
+        let dldb = e*a*c
+        let dldc = e*a*b
+
+        assert(e.grad.isApproximatelyEqual(to: dlde.data), "e.grad(\(e.grad)) should be \(dlde.data)")
+        assert(d.grad.isApproximatelyEqual(to: dldd.data), "d.grad(\(d.grad)) should be \(dldd.data)")
+        assert(a.grad.isApproximatelyEqual(to: dlda.data), "a.grad(\(a.grad)) should be \(dlda.data)")
+        assert(b.grad.isApproximatelyEqual(to: dldb.data), "b.grad(\(b.grad)) should be \(dldb.data)")
+        assert(c.grad.isApproximatelyEqual(to: dldc.data), "c.grad(\(c.grad)) should be \(dldc.data)")
+    }
+
 }

@@ -101,7 +101,7 @@ class Value<T: FloatingPoint> : CustomStringConvertible {
         build_topo(value: self)
 
         self.grad = 1
-        topo.forEach { $0._backward() }
+        topo.reversed().forEach { $0._backward() }
     }
 }
 

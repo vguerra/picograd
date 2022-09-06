@@ -1,8 +1,11 @@
+import Numerics
+
+typealias DiffT = Real
 
 // MARK: Sum operations on `Value`
 
 /// Forward and backward pass for `+` operation
-func +<T>(lhs: Value<T>, rhs: Value<T>) -> Value<T> where T: FloatingPoint {
+func +<T>(lhs: Value<T>, rhs: Value<T>) -> Value<T> where T: DiffT {
     // Forward pass
     let sumValue = Value(lhs.data + rhs.data, inputs: [lhs, rhs], op: "+")
 
@@ -14,12 +17,12 @@ func +<T>(lhs: Value<T>, rhs: Value<T>) -> Value<T> where T: FloatingPoint {
     return sumValue
 }
 
-func +<T>(lhs: T, rhs: Value<T>) -> Value<T> where T: FloatingPoint {
+func +<T>(lhs: T, rhs: Value<T>) -> Value<T> where T: DiffT {
     let lhsValue = Value(lhs)
     return lhsValue + rhs
 }
 
-func +<T>(lhs: Value<T>, rhs: T) -> Value<T> where T: FloatingPoint {
+func +<T>(lhs: Value<T>, rhs: T) -> Value<T> where T: DiffT {
     let rhsValue = Value(rhs)
     return lhs + rhsValue
 }
@@ -28,7 +31,7 @@ func +<T>(lhs: Value<T>, rhs: T) -> Value<T> where T: FloatingPoint {
 
 /// Forward and backward pass for `-` operation
 
-func *<T>(lhs: Value<T>, rhs: Value<T>) -> Value<T> where T: FloatingPoint {
+func *<T>(lhs: Value<T>, rhs: Value<T>) -> Value<T> where T: DiffT {
     // Forward pass
     let mulValue = Value(lhs.data * rhs.data, inputs: [lhs, rhs], op: "*")
 
@@ -40,21 +43,21 @@ func *<T>(lhs: Value<T>, rhs: Value<T>) -> Value<T> where T: FloatingPoint {
     return mulValue
 }
 
-func *<T>(lhs: T, rhs: Value<T>) -> Value<T> where T: FloatingPoint {
-        // Forward pass
+func *<T>(lhs: T, rhs: Value<T>) -> Value<T> where T: DiffT {
+    // Forward pass
     let lhsValue = Value(lhs)
     return lhsValue * rhs;
 }
 
-func *<T>(lhs: Value<T>, rhs: T) -> Value<T> where T: FloatingPoint {
-        // Forward pass
+func *<T>(lhs: Value<T>, rhs: T) -> Value<T> where T: DiffT {
+    // Forward pass
     let rhsValue = Value(rhs)
     return lhs * rhsValue;
 }
 
 
 // MARK: `Value` definition
-class Value<T: FloatingPoint> : CustomStringConvertible {
+class Value<T: DiffT> : CustomStringConvertible {
     /// String representation of `Value`
     var description: String {
         return "Value(data=\(self.data), grad=\(self.grad), label=\(self.label))"

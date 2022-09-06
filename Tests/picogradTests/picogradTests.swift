@@ -45,6 +45,16 @@ final class picogradTests: XCTestCase {
         assert(b.data.isApproximatelyEqual(to: 6.0))
     }
 
+    func testPowBackward() throws {
+        let a = Value(2.0, label: "a")
+        let l = a ** 4.0
+        l.backward()
+
+        let dlda = 4.0 * pow(2.0, 3.0)
+
+        assert(a.grad.isApproximatelyEqual(to: dlda), "`a.grad(\(a.grad))` shuold be \(dlda)")
+    }
+
     func testSumsAndMultsCombined() throws {
         let a = Value(2.0, label: "a")
         let b = Value(3.0, label: "b")

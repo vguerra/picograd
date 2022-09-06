@@ -55,6 +55,21 @@ func *<T>(lhs: Value<T>, rhs: T) -> Value<T> where T: DiffT {
     return lhs * rhsValue;
 }
 
+//MARK: Pow operation on `Value`
+
+infix operator ** : MultiplicationPrecedence
+func **<T>(lhs: Value<T>, rhs: T) -> Value<T> where T: DiffT {
+    // Forward pass
+    let powValue = Value(T.pow(lhs.data, rhs), inputs: [lhs], op: "**\(rhs)")
+
+    // Backward pass
+    powValue._backward = {
+        lhs.grad += rhs * (T.pow(lhs.data, rhs - 1)) * powValue.grad
+    }
+
+    return powValue
+}
+
 
 // MARK: `Value` definition
 class Value<T: DiffT> : CustomStringConvertible {

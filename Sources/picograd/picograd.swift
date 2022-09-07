@@ -70,6 +70,11 @@ func **<T>(lhs: Value<T>, rhs: T) -> Value<T> where T: DiffT {
     return powValue
 }
 
+// MARK: Unary operation `-` on `Value`
+
+prefix func -<T>(op: Value<T>) -> Value<T> where T: DiffT {
+    return op * T(-1)
+}
 
 // MARK: `Value` definition
 class Value<T: DiffT> : CustomStringConvertible {

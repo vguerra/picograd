@@ -78,4 +78,16 @@ final class picogradTests: XCTestCase {
         assert(c.grad.isApproximatelyEqual(to: dldc.data), "c.grad(\(c.grad)) should be \(dldc.data)")
     }
 
+    func testUnaryMinus() throws {
+        let a = Value(2.0, label: "a")
+        let b = Value(3.0, label: "b")
+        let c = -a
+        let d = b + c
+        d.backward()
+
+
+        assert(c.data.isApproximatelyEqual(to: -a.data), "c.data(\(c.data) should be \(-a.data)")
+        assert(a.grad.isApproximatelyEqual(to: -1.0), "a.grad(\(a.grad) should be -1.0")
+    }
+
 }
